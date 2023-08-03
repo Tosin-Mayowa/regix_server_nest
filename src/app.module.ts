@@ -1,6 +1,6 @@
 import { User } from './user/user.entity';
 import {validate,Environment} from './config/env.validation'
-import { TasksModule } from './tasks/tasks.module';
+
 import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
@@ -33,7 +33,7 @@ import secreteConfiguration from './config/secrete.configuration';
             : false,
       }),
     }),
-    TasksModule,
+   
     UserModule,
     DashboardModule,
   ],

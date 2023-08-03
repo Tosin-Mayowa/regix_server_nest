@@ -9,7 +9,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
       private readonly UserService:UserService,
-      private configService:ConfigService
+       configService:ConfigService
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
