@@ -28,7 +28,7 @@ validate
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
         entities: [(__dirname + '/**/*.entity.js')],
-        synchronize: false,
+        synchronize: true,
       }),
     }),
    
