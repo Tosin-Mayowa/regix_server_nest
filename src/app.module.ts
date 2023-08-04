@@ -13,7 +13,7 @@ import secreteConfiguration from './config/secrete.configuration';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: ['.env.development.local', '.env.production'],
+    
       isGlobal: true,
       load:[secreteConfiguration],
 validate
@@ -28,10 +28,7 @@ validate
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
         entities: [(__dirname + '/**/*.entity.js')],
-        synchronize:
-          configService.get<Environment>('NODE_ENV') === 'development'
-            ? true
-            : false,
+        synchronize: false,
       }),
     }),
    
