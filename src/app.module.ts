@@ -15,7 +15,8 @@ import secreteConfiguration from './config/secrete.configuration';
     ConfigModule.forRoot({
       envFilePath: ['.env.development.local', '.env.production'],
       isGlobal: true,
-      load:[secreteConfiguration]
+      load:[secreteConfiguration],
+validate
     }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],

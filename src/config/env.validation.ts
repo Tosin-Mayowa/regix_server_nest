@@ -9,10 +9,6 @@ export enum Environment {
 
 class EnvironmentVariables {
   @IsNotEmpty()
-  @IsNumber()
-  APP_PORT: number;
-
-  @IsNotEmpty()
   @IsString()
   DB_HOST: string;
 
@@ -33,7 +29,6 @@ class EnvironmentVariables {
   DB_NAME: string;
 
   @IsNotEmpty()
-  @IsEnum(Environment)
   NODE_ENV: Environment;
 }
 
