@@ -1,4 +1,4 @@
-import { CreateUserDto } from './user.dto';
+import { CreateUserDto } from './dtos/create.user.dto';
 import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
@@ -27,7 +27,7 @@ export class UserService {
   }
 
   async findAllUsers(): Promise<User[]> {
-    const result = this.userRepository.createQueryBuilder('user').getMany();
+    const result =await this.userRepository.createQueryBuilder('user').getMany();
     console.log(result);
     return result;
   }
@@ -58,7 +58,9 @@ export class UserService {
     user.salt = bcrypt.genSaltSync();
     user.password = bcrypt.hashSync(password, user.salt);
     user.email = email;
+user.isActive=false
     await this.userRepository.save(user);
+    
   }
 
   async userLogin(userDetails: UserDetailsDto): Promise<{access_token:string}> {
@@ -72,6 +74,8 @@ export class UserService {
     if (!user && !user.validatePassword(password)) {
       throw new UnauthorizedException();
     }
+    user.isActive = true;
+     await this.userRepository.save(user);
     const payload = { id: user.id, email: email };
     return {
       access_token:  this.jwtService.sign(payload),

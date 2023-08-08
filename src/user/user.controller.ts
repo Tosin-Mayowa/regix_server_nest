@@ -1,6 +1,6 @@
 import { UserDetailsDto } from './user.details.dto';
 import { UserService } from './user.service';
-import { CreateUserDto } from './user.dto';
+import { CreateUserDto } from './dtos/create.user.dto';
 import { Body, Controller, Get, Param, ParseIntPipe, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { User } from './user.entity';
 

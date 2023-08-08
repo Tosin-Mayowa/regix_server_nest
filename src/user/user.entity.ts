@@ -1,5 +1,6 @@
-import { Role } from './user.dto';
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Payment } from './../userpayment/payment.entity';
+import { Role } from './dtos/create.user.dto';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import * as bcrypt from 'bcrypt';
 
 @Entity('user')
@@ -45,6 +46,9 @@ export class User {
   @Column('varchar', { length: 250 })
   password: string;
 
+  @Column({ type: 'boolean', default: false })
+  isActive: boolean;
+
   @Column()
   salt: string;
 
@@ -52,4 +56,7 @@ export class User {
     const hash = bcrypt.hashSync(password, this.salt);
     return hash === this.password;
   }
+
+  @OneToMany(() => Payment, (Payment) => Payment.user)
+  payment: Payment[];
 }

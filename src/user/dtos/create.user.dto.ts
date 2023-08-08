@@ -3,7 +3,8 @@ import { IsNotEmpty } from "class-validator";
 export enum Role{
     ADMIN='Admin',
     PARENT='Parent',
-    TEACHER='Teacher'
+    TEACHER='Teacher',
+    DEVELOPER='Developer'
 }
 
 export class CreateUserDto {
@@ -36,4 +37,7 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   password: string;
+
+  @IsNotEmpty()
+  isActive: boolean;
 }

@@ -6,6 +6,8 @@ import { UserModule } from './user/user.module';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { UserpaymentModule } from './userpayment/userpayment.module';
+
 import secreteConfiguration from './config/secrete.configuration';
 
 
@@ -22,6 +24,7 @@ validate
       inject: [ConfigService],
       useFactory: (configService: ConfigService): TypeOrmModuleOptions => ({
         type: 'postgres',
+        // type:'mysql',
         host: configService.get<string>('DB_HOST'),
         port: configService.get<number>('DB_PORT'),
         username: configService.get<string>('DB_USERNAME'),
@@ -34,6 +37,7 @@ validate
    
     UserModule,
     DashboardModule,
+    UserpaymentModule,
   ],
   controllers: [],
   providers: [],
