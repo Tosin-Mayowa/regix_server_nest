@@ -39,7 +39,9 @@ export class Payment {
   @Column('varchar', { length: 250 })
   image: string;
 
-  @ManyToOne(() => User, (user) => user.payment)
+  @ManyToOne(() => User, (user) => user.payment, {
+    onDelete: 'CASCADE',
+  })
   user: User;
 
   @Column()

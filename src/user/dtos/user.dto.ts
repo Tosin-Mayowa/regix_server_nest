@@ -4,8 +4,6 @@ import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export enum Role {
   ADMIN = 'Admin',
-  PARENT = 'Parent',
-  TEACHER = 'Teacher',
   DEVELOPER = 'Developer',
 }
 
