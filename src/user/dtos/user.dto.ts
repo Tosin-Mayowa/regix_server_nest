@@ -1,6 +1,7 @@
+
 import { Payment } from './../../userpayment/payment.entity';
 import { CreatePaymentDto } from './../../userpayment/payment.dto';
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString, IsOptional } from 'class-validator';
 
 export enum Role {
   ADMIN = 'Admin',
@@ -9,7 +10,7 @@ export enum Role {
 
 export class UserDto {
   @IsNumber()
-  id;
+  id:number;
 
   @IsNotEmpty()
   fullName: string;
@@ -45,8 +46,14 @@ export class UserDto {
   @IsNotEmpty()
   salt: string;
 
-  @IsNotEmpty()
+  @IsOptional()
+  isVerified: boolean;
+
+  @IsOptional()
   isActive: boolean;
+
+  @IsOptional()
+  otp: string;
 
   payment: Payment[];
 

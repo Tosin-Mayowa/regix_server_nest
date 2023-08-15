@@ -46,6 +46,12 @@ export class User {
   @Column('varchar', { length: 250 })
   password: string;
 
+  @Column({ type: 'varchar', length:6 })
+  otp: string;
+
+  @Column({ type: 'boolean', default: false })
+  isVerified: boolean;
+
   @Column({ type: 'boolean', default: false })
   isActive: boolean;
 

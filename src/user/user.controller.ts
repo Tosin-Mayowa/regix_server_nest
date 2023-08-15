@@ -1,3 +1,4 @@
+import { OtpDataDto } from './dtos/Otp.dto';
 
 import { UserDetailsDto } from './user.details.dto';
 import { UserService } from './user.service';
@@ -21,6 +22,13 @@ export class UserController {
   @Get('me')
   findUserByRole(): Promise<User> {
     return this.userService.findUserByRole();
+  }
+
+  @Post('verify')
+  verifyOtp(
+    @Body(new ValidationPipe()) otpDataDto:OtpDataDto
+  ){
+    return this.userService.verifyOtp(otpDataDto)
   }
 
   @Get(':userId')

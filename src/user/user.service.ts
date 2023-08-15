@@ -1,3 +1,4 @@
+import { OtpDataDto } from './dtos/Otp.dto';
 import { CreateUserDto } from './dtos/create.user.dto';
 import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -17,6 +18,15 @@ export class UserService {
     private mailerService: MailerService,
   ) {}
 
+  private readonly num = '0123456789';
+
+ private getOtp() {
+let otp='';
+ for (let i = 0; i < 6; i++) {
+   otp += this.num[Math.floor(Math.random() * 10)];
+ }
+ return otp;
+  }
   async findUserByEmail(email: string): Promise<User> {
     const found = await this.userRepository
       .createQueryBuilder('user')
@@ -32,7 +42,7 @@ export class UserService {
   async findUserByRole(): Promise<User> {
     const found = await this.userRepository
       .createQueryBuilder('user')
-      .where('user.role = :role', { role:'Developer' })
+      .where('user.role = :role', { role: 'Developer' })
       .getOne();
     if (!found) {
       throw new NotFoundException();
@@ -50,6 +60,16 @@ export class UserService {
     }
     return found;
   }
+
+async verifyOtp(otpDataDto:OtpDataDto){
+  const { email, otp } = otpDataDto;
+  const user = await this.findUserByEmail(email);
+  if(otp !==user.otp){
+throw new UnauthorizedException('invalid code,check your mail for correct')
+  }
+  user.isVerified=true;
+  await this.userRepository.save(user);
+}
 
   async findAllUsers(): Promise<User[]> {
     const result = await this.userRepository
@@ -72,10 +92,11 @@ export class UserService {
       country,
       password,
     } = CreateUserDto;
-
+let OTP = this.getOtp();
     const user = new User();
     user.fullName = fullName;
     user.role = role;
+    user.otp=OTP;
     user.company_address = company_address;
     user.company_email = company_email;
     user.company_name = company_name;
@@ -86,6 +107,7 @@ export class UserService {
     user.password = bcrypt.hashSync(password, user.salt);
     user.email = email;
     user.isActive = false;
+    user.isVerified=false;
     await this.userRepository.save(user);
     this.mailerService
       .sendMail({
@@ -95,7 +117,7 @@ export class UserService {
         template: 'index', // The `.pug` or `.hbs` extension is appended automatically.
         context: {
           // Data to be sent to template engine.
-
+code:OTP,
           username: fullName,
         },
       })
