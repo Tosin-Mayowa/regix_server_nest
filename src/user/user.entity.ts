@@ -46,7 +46,7 @@ export class User {
   @Column('varchar', { length: 250 })
   password: string;
 
-  @Column({ type: 'varchar', length:6 })
+  @Column({ type: 'varchar', length: 6, nullable: true })
   otp: string;
 
   @Column({ type: 'boolean', default: false })

@@ -1,7 +1,8 @@
-import { IsNotEmpty,IsEmail } from 'class-validator';
+import { IsNotEmpty, IsEmail, IsOptional } from 'class-validator';
+import { IsNull } from 'typeorm';
 
 export class OtpDataDto {
-  @IsNotEmpty()
+ 
   otp: string;
 
   @IsEmail()
