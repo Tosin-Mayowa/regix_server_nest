@@ -1,4 +1,4 @@
-import { OtpDataDto } from './dtos/Otp.dto';
+import { OtpDataDto } from './dtos/otp.dto';
 
 import { UserDetailsDto } from './user.details.dto';
 import { UserService } from './user.service';
