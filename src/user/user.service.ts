@@ -33,7 +33,7 @@ let otp='';
       .where('user.email = :email', { email })
       .getOne();
     if (!found) {
-      throw new NotFoundException();
+      throw new NotFoundException('email does not exist');
     }
 
     return found;
