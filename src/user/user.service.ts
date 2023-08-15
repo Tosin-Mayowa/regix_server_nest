@@ -1,4 +1,4 @@
-import { OtpDataDto } from './dtos/Otp.dto';
+import { OtpDataDto } from './dtos/otp.dto';
 import { CreateUserDto } from './dtos/create.user.dto';
 import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
